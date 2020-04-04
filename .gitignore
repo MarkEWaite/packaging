@@ -11,5 +11,6 @@ generated
 .iml
 .idea/
 *.orig
+/results/
 
 msi/build
