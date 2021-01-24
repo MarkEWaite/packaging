@@ -29,6 +29,5 @@ docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-debia
 docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR --env CHECK_CERTS=true sudo-debian:stable    $TEST_INSTALL_DEBIAN_AND_SERVICES
 docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-debian:testing   $TEST_INSTALL_DEBIAN_AND_SERVICES
 docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-opensuse:15.1    $TEST_INSTALL_SUSE
-docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-ubuntu:16.04     $TEST_INSTALL_DEBIAN_AND_SERVICES
 docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-ubuntu:18.04     $TEST_INSTALL_DEBIAN_AND_SERVICES
 docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-ubuntu:20.04     $TEST_INSTALL_DEBIAN_AND_SERVICES
