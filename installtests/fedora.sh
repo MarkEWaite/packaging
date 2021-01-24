@@ -16,7 +16,7 @@ fi
 
 . /etc/os-release
 
-OS="${ID}.${VERSION_ID}" # fedora.31 so that JUnit package naming can be used
+OS="${ID}.${VERSION_ID}" # fedora.33 so that JUnit package naming can be used
 
 #######################################################################
 

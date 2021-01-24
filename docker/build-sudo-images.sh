@@ -9,7 +9,6 @@ docker build --build-arg USER_ID=$(id -u ${USER}) -t sudo-debian:stable sudo-deb
 docker build --build-arg USER_ID=$(id -u ${USER}) -t sudo-debian:oldstable sudo-debian-oldstable
 docker build --build-arg USER_ID=$(id -u ${USER}) -t sudo-debian:testing sudo-debian-testing
 docker build --build-arg USER_ID=$(id -u ${USER}) -t sudo-opensuse:15.1 sudo-opensuse
-docker build                                      -t sudo-fedora:31 sudo-fedora31
 docker build                                      -t sudo-fedora:32 sudo-fedora32
 docker build                                      -t sudo-fedora:33 sudo-fedora33
 docker build --build-arg USER_ID=$(id -u ${USER}) -t sudo-ubuntu:18.04  sudo-ubuntu18
