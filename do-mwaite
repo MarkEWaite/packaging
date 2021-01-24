@@ -16,18 +16,18 @@ if hostname --all-ip-addresses | grep -q -F 172.16.16; then
   # markwaite.net
   PKG[centos]=https://home.markwaite.net/~mwaite/jenkins-builds/${VERSION}/jenkins-${VERSION}-1.1.noarch.rpm
   PKG[debian]=https://home.markwaite.net/~mwaite/jenkins-builds/${VERSION}/jenkins_${VERSION}_all.deb
-  PKG[msi]=https://home.markwaite.net/~mwaite/jenkins-builds/${VERSION}/jenkins-${VERSION}.zip
+  PKG[msi]=https://home.markwaite.net/~mwaite/jenkins-builds/${VERSION}/jenkins.msi
   PKG[suse]=https://home.markwaite.net/~mwaite/jenkins-builds/${VERSION}/jenkins-${VERSION}-1.2.noarch.rpm
   PKG[war]=https://home.markwaite.net/~mwaite/jenkins-builds/${VERSION}/jenkins.war
 
 else
 
   # everywhere else
-  PKG[centos]=https://pkg.jenkins.io/redhat/jenkins-${VERSION}-1.1.noarch.rpm
-  PKG[debian]=https://pkg.jenkins.io/debian/binary/jenkins_${VERSION}_all.deb
-  PKG[msi]=http://mirrors.jenkins-ci.org/windows/jenkins-${VERSION}.zip
-  PKG[suse]=https://pkg.jenkins.io/opensuse/jenkins-${VERSION}-1.2.noarch.rpm
-  PKG[war]=http://mirrors.jenkins-ci.org/war/${VERSION}/jenkins.war
+  PKG[centos]=https://get.jenkins.io/redhat/jenkins-${VERSION}-1.1.noarch.rpm
+  PKG[debian]=https://get.jenkins.io/debian/jenkins_${VERSION}_all.deb
+  PKG[msi]=https://get.jenkins.io/windows/${VERSION}/jenkins.msi
+  PKG[suse]=https://get.jenkins.io/opensuse/jenkins-${VERSION}-1.2.noarch.rpm
+  PKG[war]=https://get.jenkins.io/war/${VERSION}/jenkins.war
 
 fi
 
@@ -61,7 +61,7 @@ fi
 
 [ -d target/msi ] || mkdir target/msi
 if ! ls target/msi/*.msi > /dev/null 2>&1; then
-    ( cd target/msi && wget --no-use-server-timestamps -q ${PKG[msi]} && unzip *.zip && touch *.msi )
+    ( cd target/msi && wget --no-use-server-timestamps -q ${PKG[msi]} )
     if ! ls target/msi/*.msi | grep -q msi; then
       echo "No MSI file in target/msi/"
       exit 3
