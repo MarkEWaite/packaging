@@ -21,7 +21,7 @@ VERSION_ID=testing
 
 . /etc/os-release
 
-OS="${ID}.${VERSION_ID}" # debian.buster or ubuntu.19.10
+OS="${ID}.${VERSION_ID}" # debian.buster or ubuntu.20.04
 
 SERVICE_WAIT=5
 MAX_START_WAIT=120

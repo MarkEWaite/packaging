@@ -31,5 +31,4 @@ docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-debia
 docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-opensuse:15.1    $TEST_INSTALL_SUSE
 docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-ubuntu:16.04     $TEST_INSTALL_DEBIAN_AND_SERVICES
 docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-ubuntu:18.04     $TEST_INSTALL_DEBIAN_AND_SERVICES
-docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-ubuntu:19.10     $TEST_INSTALL_DEBIAN_AND_SERVICES
 docker run --rm -v "$PKG_SRC_DIR":$PKG_TMP_DIR                        sudo-ubuntu:20.04     $TEST_INSTALL_DEBIAN_AND_SERVICES

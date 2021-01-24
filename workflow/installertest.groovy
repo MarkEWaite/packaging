@@ -71,12 +71,6 @@ private def osesToTest(String category) {
           "extended"
       ],
       [
-          "ubuntu-19.10",
-          "sudo-ubuntu:19.10",
-          "deb",
-          "extended"
-      ],
-      [
           "ubuntu-20.04",
           "sudo-ubuntu:20.04",
           "deb",

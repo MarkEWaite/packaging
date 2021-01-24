@@ -14,5 +14,4 @@ docker build                                      -t sudo-fedora:32 sudo-fedora3
 docker build                                      -t sudo-fedora:33 sudo-fedora33
 docker build --build-arg USER_ID=$(id -u ${USER}) -t sudo-ubuntu:16.04  sudo-ubuntu16
 docker build --build-arg USER_ID=$(id -u ${USER}) -t sudo-ubuntu:18.04  sudo-ubuntu18
-docker build --build-arg USER_ID=$(id -u ${USER}) -t sudo-ubuntu:19.10  sudo-ubuntu19
 docker build --build-arg USER_ID=$(id -u ${USER}) -t sudo-ubuntu:20.04  sudo-ubuntu20
