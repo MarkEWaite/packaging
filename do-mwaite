@@ -6,8 +6,8 @@
 
 set -x
 
-# Use weekly 2.276
-VERSION=2.276
+# Use weekly 2.277
+VERSION=2.277
 
 declare -A PKG
 
