@@ -6,14 +6,6 @@ driver:
 
 platforms:
   # deb
-  - name: debian-10  # EOL 2024-06-30
-    image: dokken/debian-10:latest
-    override_command: false
-    volumes:
-      - ${MOLECULE_PROJECT_DIRECTORY}/target:/var/tmp/target
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    cgroupns_mode: host
-    privileged: true
   - name: debian-11  # EOL 2026-06-30
     image: dokken/debian-11:latest
     override_command: false
@@ -30,8 +22,8 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     cgroupns_mode: host
     privileged: true
-  - name: ubuntu-20-04  # EOL 2025-04-02
-    image: dokken/ubuntu-20.04:latest
+  - name: debian-13  # EOL 2030-06-30 (LTS)
+    image: dokken/debian-13:latest
     override_command: false
     volumes:
       - ${MOLECULE_PROJECT_DIRECTORY}/target:/var/tmp/target
@@ -46,15 +38,15 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     cgroupns_mode: host
     privileged: true
-  # rpm
-  - name: almalinux-8  # EOL 2024-05-01
-    image: dokken/almalinux-8:latest
+  - name: ubuntu-24-04  # EOL 2029-04-01
+    image: dokken/ubuntu-24.04:latest
     override_command: false
     volumes:
       - ${MOLECULE_PROJECT_DIRECTORY}/target:/var/tmp/target
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     cgroupns_mode: host
     privileged: true
+  # rpm
   - name: almalinux-9  # EOL 2027-05-31
     image: dokken/almalinux-9:latest
     override_command: false
@@ -63,16 +55,16 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     cgroupns_mode: host
     privileged: true
-  - name: amazonlinux-2023  # EOL 2025-03-15
-    image: dokken/amazonlinux-2023:latest
+  - name: rockylinux-9  # 2032-05-31
+    image: dokken/rockylinux-9:latest
     override_command: false
     volumes:
       - ${MOLECULE_PROJECT_DIRECTORY}/target:/var/tmp/target
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     cgroupns_mode: host
     privileged: true
-  - name: centos-stream-8  # EOL 2024-05-31
-    image: dokken/centos-stream-8:latest
+  - name: amazonlinux-2023  # EOL 2029-06-30
+    image: dokken/amazonlinux-2023:latest
     override_command: false
     volumes:
       - ${MOLECULE_PROJECT_DIRECTORY}/target:/var/tmp/target
@@ -87,16 +79,16 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     cgroupns_mode: host
     privileged: true
-  - name: fedora-37  # EOL 2023-12-15
-    image: dokken/fedora-37:latest
+  - name: centos-stream-10  # EOL 2030-01-01
+    image: dokken/centos-stream-10:latest
     override_command: false
     volumes:
       - ${MOLECULE_PROJECT_DIRECTORY}/target:/var/tmp/target
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     cgroupns_mode: host
     privileged: true
-  - name: oraclelinux-8  # EOL 2029-07-01
-    image: dokken/oraclelinux-8:latest
+  - name: fedora-41  # EOL 2025-11-19
+    image: dokken/fedora-41:latest
     override_command: false
     volumes:
       - ${MOLECULE_PROJECT_DIRECTORY}/target:/var/tmp/target
@@ -111,25 +103,9 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     cgroupns_mode: host
     privileged: true
-  - name: rockylinux-8  # EOL 2024-05-31
-    image: dokken/rockylinux-8:latest
-    override_command: false
-    volumes:
-      - ${MOLECULE_PROJECT_DIRECTORY}/target:/var/tmp/target
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    cgroupns_mode: host
-    privileged: true
-  - name: rockylinux-9  # EOL 2025-05-31
-    image: dokken/rockylinux-9:latest
-    override_command: false
-    volumes:
-      - ${MOLECULE_PROJECT_DIRECTORY}/target:/var/tmp/target
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    cgroupns_mode: host
-    privileged: true
   # suse
-  - name: opensuse-leap-15  # EOL N/A, but 15.4 is 2023-12-01
-    image: dokken/opensuse-leap-15:latest
+  - name: opensuse-leap-15.6  # EOL 2025-12-01
+    image: dokken/opensuse-leap-15.6:latest
     override_command: false
     volumes:
       - ${MOLECULE_PROJECT_DIRECTORY}/target:/var/tmp/target

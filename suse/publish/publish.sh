@@ -16,7 +16,7 @@ SSH_OPTS=($SSH_OPTS)
 SCP_OPTS=($SCP_OPTS)
 
 function clean() {
-	rm -rf $D
+	rm -rf "$D"
 }
 
 function generateSite() {
@@ -26,9 +26,9 @@ function generateSite() {
 
 	gpg --export -a --output "$D/repodata/repomd.xml.key" "${GPG_KEYNAME}"
 
-	"$BASE/bin/branding.py" $D
+	"$BASE/bin/branding.py" "$D"
 
-	cp "$SUSE" $D/RPMS/noarch
+	cp "$SUSE" "$D/RPMS/noarch"
 }
 
 function init() {
@@ -41,7 +41,7 @@ function init() {
 	# where to put repository index and other web contents
 	mkdir -p "$SUSE_WEBDIR"
 
-	mkdir -p $D/RPMS/noarch $D/repodata
+	mkdir -p "$D/RPMS/noarch" "$D/repodata"
 }
 
 function skipIfAlreadyPublished() {
@@ -66,6 +66,7 @@ function show() {
 function uploadPackage() {
 	rsync \
 		--recursive \
+		--times \
 		--verbose \
 		--compress \
 		--ignore-existing \
@@ -74,6 +75,7 @@ function uploadPackage() {
 
 	rsync \
 		--archive \
+		--times \
 		--verbose \
 		--compress \
 		--ignore-existing \
@@ -83,9 +85,10 @@ function uploadPackage() {
 }
 
 function uploadSite() {
-	pushd $D
+	pushd "$D"
 	rsync \
 		--recursive \
+		--times \
 		--verbose \
 		--compress \
 		--progress \
@@ -97,6 +100,7 @@ function uploadSite() {
 	# shellcheck disable=SC2029
 	rsync \
 		--archive \
+		--times \
 		--verbose \
 		--compress \
 		--progress \
@@ -140,6 +144,7 @@ function uploadSite() {
 	# Following html need to be located inside the binary directory
 	rsync \
 		--compress \
+		--times \
 		--verbose \
 		--recursive \
 		--include "HEADER.html" \
@@ -150,6 +155,7 @@ function uploadSite() {
 
 	rsync \
 		--archive \
+		--times \
 		--compress \
 		--verbose \
 		-e "ssh ${SSH_OPTS[*]}" \

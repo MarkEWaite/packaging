@@ -26,7 +26,7 @@ function generateSite() {
 	cp -R "$bin/contents/." "$D/contents"
 
 	gpg --export -a --output "$D/contents/${ORGANIZATION}.key" "${GPG_KEYNAME}"
-	echo "$(gpg --import-options show-only --import $D/contents/${ORGANIZATION}.key)" >"$D/contents/${ORGANIZATION}.key.info"
+	gpg --import-options show-only --import "$D/contents/${ORGANIZATION}.key" >"$D/contents/${ORGANIZATION}.key.info"
 
 	"$BASE/bin/indexGenerator.py" \
 		--distribution debian \
@@ -46,13 +46,13 @@ function generateSite() {
 
 	# Remote ftparchive-merge
 	# https://github.com/kohsuke/apt-ftparchive-merge
-	pushd $D/binary
+	pushd "$D/binary"
 	mvn -V org.kohsuke:apt-ftparchive-merge:1.6:merge -Durl="$DEB_URL/binary/" -Dout=../merged
 	popd
 
 	# Local ftparchive-merge
 
-	cat $D/merged/Packages >$D/binary/Packages
+	cat "$D/merged/Packages" >"$D/binary/Packages"
 	gzip -9c "$D/merged/Packages" >"$D/binary/Packages.gz"
 	bzip2 -c "$D/merged/Packages" >"$D/binary/Packages.bz2"
 	lzma -c "$D/merged/Packages" >"$D/binary/Packages.lzma"
@@ -69,13 +69,10 @@ function init() {
 
 	# where to put repository index and other web contents
 	mkdir -p "$DEB_WEBDIR"
-	## On remote serve
-	# shellcheck disable=SC2029
-	ssh "${SSH_OPTS[@]}" "$PKGSERVER" mkdir -p "$DEBDIR/"
 }
 
 function skipIfAlreadyPublished() {
-	if ssh "${SSH_OPTS[@]}" "$PKGSERVER" test -e "${DEBDIR}/$(basename "$DEB")"; then
+	if [[ -f "${DEBDIR}/$(basename "$DEB")" ]]; then
 		echo "File already published, nothing else todo"
 		return 0
 	fi
@@ -88,18 +85,10 @@ function uploadPackage() {
 		--verbose \
 		--recursive \
 		--compress \
+		--times \
 		--ignore-existing \
 		--progress \
 		"$DEB" "$DEBDIR/"
-
-	rsync \
-		--archive \
-		--verbose \
-		--compress \
-		--ignore-existing \
-		--progress \
-		-e "ssh ${SSH_OPTS[*]}" \
-		"${DEB}" "$PKGSERVER:${DEBDIR// /\\ }"
 }
 
 function uploadPackageSite() {
@@ -114,12 +103,14 @@ function uploadPackageSite() {
 		--verbose \
 		--recursive \
 		--compress \
+		--times \
 		--progress \
 		"$D/contents/" "$DEB_WEBDIR/"
 
 	rsync \
 		--archive \
 		--compress \
+		--times \
 		--progress \
 		--verbose \
 		-e "ssh ${SSH_OPTS[*]}" \
@@ -133,6 +124,7 @@ function uploadHtmlSite() {
 		--include "FOOTER.html" \
 		--exclude "*" \
 		--compress \
+		--times \
 		--recursive \
 		--progress \
 		--verbose \
@@ -141,23 +133,13 @@ function uploadHtmlSite() {
 	rsync \
 		--archive \
 		--compress \
+		--times \
 		--include "index.html" \
 		--exclude "*" \
 		--progress \
 		--verbose \
 		-e "ssh ${SSH_OPTS[*]}" \
 		"$D/html/" "$PKGSERVER:${DEB_WEBDIR// /\\ }/"
-
-	rsync \
-		--archive \
-		--compress \
-		--include "HEADER.html" \
-		--include "FOOTER.html" \
-		--exclude "*" \
-		--progress \
-		--verbose \
-		-e "ssh ${SSH_OPTS[*]}" \
-		"$D/html/" "$PKGSERVER:${DEBDIR// /\\ }/"
 }
 
 function show() {

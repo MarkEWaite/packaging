@@ -11,12 +11,7 @@
         fail_msg: "{{ service_pids.pids | join(',') }}"
     - command:
         cmd: /usr/local/tomcat/bin/catalina.sh start
-      when: ansible_hostname == 'tomcat-9'
-    - command:
-        cmd: /opt/jboss/wildfly/bin/standalone.sh
-      async: 3600
-      poll: 0
-      when: ansible_hostname == 'wildfly-26'
+      when: ansible_hostname == 'tomcat-10'
     - uri:
         url: "http://127.0.0.1:8080/jenkins/login"
         return_content: true
@@ -26,7 +21,7 @@
       delay: 5
     - assert:
         that:
-          - "'<title>Sign in [Jenkins]</title>' in result.content"
+          - "'<title>Sign in - Jenkins</title>' in result.content"
         fail_msg: "{{ result.content }}"
     - pids:
         name: java
@@ -44,10 +39,7 @@
         fail_msg: "{{ jenkins_dir.state }}"
     - command:
         cmd: /usr/local/tomcat/bin/catalina.sh stop
-      when: ansible_hostname == 'tomcat-9'
-    - command:
-        cmd: /opt/jboss/wildfly/bin/jboss-cli.sh --connect command=:shutdown
-      when: ansible_hostname == 'wildfly-26'
+      when: ansible_hostname == 'tomcat-10'
     - pids:
         name: java
       register: service_pids
